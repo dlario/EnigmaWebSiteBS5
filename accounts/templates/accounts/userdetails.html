@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'form-validation.css' %}"/>
+    <title>New Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    </head>
+    <body class="bg-light">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>User Details</h2>
+            <p class="lead">Personal Information</p>
+            <div class="panel-body">
+                {% crispy form %}
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

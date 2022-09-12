@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'general.css' %}"/>
+    {% if error %}
+        {{ error }}
+        <br/>
+        <br/>
+    {% endif %}
+
+    {% for inspection in inspections.all %}
+        <div class="row pt-3">
+            <div class="col-2" onclick="window.location='{% url 'detail' inspection.id %}';" style="cursor: pointer;">
+            </div>
+            <div class="col-8" onclick="window.location='{% url 'detail' inspection.id %}';" style="cursor: pointer;">
+                <p>{{ inspection.project_number }}: {{ inspection.title }}</p>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

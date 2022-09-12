@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'persons/js/persons.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+    </head>
+
+    <body>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                <h1>{{ company.company_name }}</h1>
+                <button type="button"
+                        class="btn-warning btn-sm js-create-person"
+                        data-url="{% url 'person_update' person.id %}">
+                    <span class="fas fa-pen"></span>
+                </button>
+
+                <a>{{ person.first_name }} {{ person.last_name }}</a>
+
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-inspection" role="tabpanel"
+                             aria-labelledby="pills-inspection-tab">
+                            <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                        </div>
+                    </div>
+
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-inspection-tab" data-toggle="pill"
+                               href="#pills-inspection" role="tab" aria-controls="pills-inspection"
+                               aria-selected="true">Inspection History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-billing-tab" data-toggle="pill" href="#pills-billing"
+                               role="tab" aria-controls="pills-billing" aria-selected="false">Billing History</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card text-white bg-secondary my-2 text-center">
+                    <div class="card-body">
+                        <div id="HASH" class="blue-msg">
+                            <div id="left">
+                                <span id="time-HASH" class="text-white m-0">Client Activity</span>
+                            </div>
+                            <div id="right">
+                                <span class="ios-circle">
+                                    <form class="form-inline">
+                                        <input class="form-control mr-sm-2" type="text" placeholder="Search"
+                                               aria-label="Search">
+                                        <button class="btn btn-outline-success my-2 my-sm-0"
+                                                type="submit">Project</button>
+                                    </form>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% for inspection in filter.qs %}
+                    <div class="row pt-3">
+                        <div class="col-8" onclick="window.location='{% url 'detail' inspection.id %}';"
+                             style="cursor: pointer;">
+                            <p>{{ inspection.project_number }}: {{ inspection.title }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Book Inspection</button>
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Activity Filter</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="[ form-group ]">
+
+                                    <div class="checkbox">
+                                        <input id="checkbox1" type="checkbox">
+                                        <label for="checkbox1">
+                                            All
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="checkbox2" type="checkbox" checked="">
+                                        <label for="checkbox2">
+                                            Inspections
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-success">
+                                        <input id="checkbox3" type="checkbox">
+                                        <label for="checkbox3">
+                                            Projects
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-info">
+                                        <input id="checkbox4" type="checkbox">
+                                        <label for="checkbox4">
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="checkbox checkbox-warning">
+                                        <input id="checkbox5" type="checkbox" checked="">
+                                        <label for="checkbox5">
+                                            Require Action
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <form method="get">
+                        <div>
+                            {{ filter.form.as_p }}
+                            <button type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">
+                        <a class="align-left"> Employees</a>
+                        <button type="button"
+                                class="btn btn-primary js-create-person"
+                                data-url="{% url 'person_create' %}">
+                            <span class="fas fa-plus"></span>
+                        </button>
+                    </h5>
+                    <div class="table-wrapper">
+                        <table class="table table-striped table-hover">
+                            <tbody>
+                            {% for e in employee %}
+                                <tr>
+                                    <td>{{ e.person }} </td>
+                                    {% if e.role %}
+                                        <td>{{ e.role }}</td>
+                                    {% endif %}
+                                    <td>
+                                        <button type="button"
+                                                class="btn-warning btn-sm js-create-person"
+                                                data-url="{% url 'person_update' e.id %}">
+                                            <span class="fas fa-pen"></span>
+                                        </button>
+                                        <button type="button"
+                                                class="btn-danger btn-sm js-create-person"
+                                                data-url="{% url 'person_delete'  e.id %}">
+                                            <span class="fas fa-trash"></span>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                            {% include 'persons/includes/partial_person_list.html' %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal fade" id="modal-book">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">Categories</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="/equipment/equipmentlist">Equipment</a>
+                                        </li>
+                                        <li>
+                                            <a href="/equipment/clientprojects">Projects</a>
+                                        </li>
+                                        <li>
+                                            <a href="clientdetails">Billing Information</a>
+                                        </li>
+                                        <li>
+                                            <a href="/inspections/createproject">Book Inspection</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Contact Information</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Widget -->
+                    <div class="card my-4">
+                        <h5 class="card-header">News Feed</h5>
+                        <div class="card-body">
+                            <h4>August 18, 2018</h4>
+                            <p>New Occupational Health and Safety Regulations are out!!!</p>
+
+                            <h4>August 04, 2018</h4>
+                            <p>Inspections on Sale!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit Modal HTML -->
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- /.container -->
+    <!-- Edit Modal HTML -->
+
+
+    <!-- Footer -->
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Enigma Design Solutions {% now "Y" %}</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+    </div>
+    </div>
+    </div>
+
+    <script src="{% static 'accounts/js/jquery-3.2.1.min.js' %}" ></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+    </body>
+
+    <!-- Graphs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    data: [5, 3, 4, 6, 12, 11, 4, 4, 6, 5, 3, 4],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#007bff'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false,
+                }
+            }
+        });
+    </script>
+
+
+    </html>
+
+    <!-- THE MODAL WE WILL BE USING -->
+    <div class="modal fade" id="modal-person">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

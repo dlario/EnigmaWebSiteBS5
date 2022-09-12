@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'blog-home.css' %}"/>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    </head>
+
+    <body>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-10">
+                        <a href="{{ inspection.project_number }}"><h1>{{ inspection.title }}</h1></a>
+                    </div>
+                </div>
+                <div class="col-4 text-left">
+                    <h5><span class="oi oi-clock"></span> {{ inspection.start_date }}</h5>
+                </div>
+                <!-- Blog Post -->
+                <div class="card mb-4">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-timeline" role="tabpanel"
+                             aria-labelledby="pills-timeline-tab">
+                            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+                        </div>
+
+                    </div>
+
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-timeline-tab" data-toggle="pill" href="#pills-timeline"
+                               role="tab" aria-controls="pills-timeline" aria-selected="true">Timeline</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-billing-tab" data-toggle="pill" href="#pills-billing"
+                               role="tab" aria-controls="pills-billing" aria-selected="false">Billing</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card text-white bg-secondary my-2 text-center">
+                    <div class="card-body">
+                        <p class="text-white m-0">Project Activity</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+
+                <div class="card my-4">
+                    <h5 class="card-header">Team</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a href="">Lead: David Lario</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Client: North West Crane</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Owner: Trident</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Fabricator: Kaymor Machine and Welding</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary btn-block" type="submit">Add Member</button>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Milestones</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a href="">Project Initiation - Completed</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Preliminary Design - Completed</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Calculations - Completed</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Drawings - August 30, 2018</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary btn-block" type="submit">Add Milestone</button>
+                </div>
+
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Documents</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a href="">Estimate - FINAL</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Contract - FINAL</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Report - UNDER REVIEW</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Drawings - PRELIMINARY</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary btn-block" type="submit">Add Document</button>
+                </div>
+
+
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Tasks</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a href="">Drawings - Arsenal</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Repairs - Kaymor</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Mechanical - NWC</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary btn-block" type="submit">Add Task</button>
+                </div>
+
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Enigma Design Solutions {% now "Y" %}</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+
+    </body>
+
+    </html>
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>

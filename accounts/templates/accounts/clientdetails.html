@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+    <body class="bg-light">
+
+    <title>Client Information Sheet</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    </head>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'form-validation.css' %}"/>
+    <form class="form-clientdetails" method="POST" action="{% url 'clientdetails' %}">
+        {% csrf_token %}
+        <div class="container">
+            <div class="py-5 text-center">
+                <h2>Client Information</h2>
+                <div class="custom-control custom-checkbox" align="left">
+                    <input type="checkbox" class="custom-control-input align-left" id="same-address">
+                    <label class="form-check-label" for="same-address">Billing address is the same as my physical
+                        address</label>
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <label for="po">Purchase Order</label>
+                    <select class="custom-select d-block w-100" id="po" required>
+                        <option value="">Choose...</option>
+                        <option>Submit Work Order</option>
+                        <option>Use Unit Number</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a PO Strategy
+                    </div>
+                </div>
+
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-physical-tab" data-toggle="pill" href="#pills-physical"
+                           role="tab" aria-controls="pills-physical" aria-selected="true">Physical Address</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-billing-tab" data-toggle="pill" href="#pills-billing" role="tab"
+                           aria-controls="pills-billing" aria-selected="false">Billing Address</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-physical" role="tabpanel"
+                         aria-labelledby="pills-physical-tab">
+                        <form class="needs-validation" novalidate align="left">
+                            <div class="mb-3">
+                                <label for="companyname">Company</label>
+                                <input type="text" class="form-control" name = "companyname" id="companyname"
+                                       value="{{ company.company_name }}" placeholder="Company" required>
+                                <div class="invalid-feedback">
+                                    Full Company Legal Name
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstname">First name</label>
+                                    <input type="text" class="form-control" name = "firstname" id="firstname" placeholder=""
+                                           value="{{ person.first_name }}" required>
+                                    <div class="invalid-feedback">
+                                        Valid first name is required.
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastname">Last name</label>
+                                    <input type="text" class="form-control" name = "lastname" id="lastname" placeholder=""
+                                           value="{{ person.last_name }}" required>
+                                    <div class="invalid-feedback">
+                                        Valid last name is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="username">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" name = "username" id="username" value="{{ user.username }}"
+                                           placeholder="Username" required>
+                                    <div class="invalid-feedback" style="width: 100%;">
+                                        Your username is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                                <input type="email" class="form-control" name = "email" id="email" value="{{ user.email }}"
+                                       placeholder="you@example.com">
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address for shipping updates.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address">Address</label>
+                                <input type="text" class="form-control" name = "address" id="address" value="{{ company.address }}"
+                                       placeholder="1234 Main St" required>
+                                <div class="invalid-feedback">
+                                    Please enter your shipping address.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                                <input type="text" class="form-control" name = "address2" id="address2" value="{{ company.postal_code }}"
+                                       placeholder="Apartment or suite">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5 mb-3">
+                                    <label for="country">Country</label>
+                                    <select class="custom-select d-block w-100" name = "country" id="country" required>
+                                        <option value="">Choose...</option>
+                                        <option>Canada</option>
+                                        <option>Unitied States</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a valid country.
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="province">Province</label>
+                                    <select class="custom-select d-block w-100" name = "province" id="province" required>
+                                        <option value="">Choose...</option>
+                                        <option>Alberta</option>
+                                        <option>British Columbia</option>
+                                        <option>Saskatchewan</option>
+                                        <option>Northwest Territories</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid province.
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="postalcode">Postal Code</label>
+                                    <input type="text" class="form-control" name = "postalcode" id="postalcode" placeholder="" required>
+                                    <div class="invalid-feedback">
+                                        Postal code required.
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-billing" role="tabpanel" aria-labelledby="pills-billing-tab">
+                        <form class="needs-validation" novalidate align="left">
+                            <div class="mb-3">
+                                <label for="bcompanyname">Company</label>
+                                <input type="text" class="form-control" name = "bcompanyname" id="bcompanyname" placeholder="Company"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Full Company Legal Name
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="bfirstname">First name</label>
+                                    <input type="text" class="form-control" name = "bfirstname" id="bfirstname" placeholder="" value=""
+                                           required>
+                                    <div class="invalid-feedback">
+                                        Valid first name is required.
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="blastname">Last name</label>
+                                    <input type="text" class="form-control" name = "blastname" id="blastname" placeholder="" value=""
+                                           required>
+                                    <div class="invalid-feedback">
+                                        Valid last name is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="busername">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" name = "busername" id="busername" placeholder="Username"
+                                           required>
+                                    <div class="invalid-feedback" style="width: 100%;">
+                                        Your username is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bemail">Email <span class="text-muted">(Optional)</span></label>
+                                <input type="email" class="form-control" name = "bemail" id="bemail" placeholder="you@example.com">
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address for shipping updates.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="baddress">Address</label>
+                                <input type="text" class="form-control" name = "baddress" id="baddress" placeholder="1234 Main St"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Please enter your shipping address.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="baddress2">Address 2 <span class="text-muted">(Optional)</span></label>
+                                <input type="text" class="form-control" name = "baddress2" id="baddress2" placeholder="Apartment or suite">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-5 mb-3">
+                                    <label for="bcountry">Country</label>
+                                    <select class="custom-select d-block w-100" name = "bcountry" id="bcountry" required>
+                                        <option value="">Choose...</option>
+                                        <option>Canada</option>
+                                        <option>Unitied States</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a valid country.
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="bprovince">Province</label>
+                                    <select class="custom-select d-block w-100" name = "bprovince" id="bprovince" required>
+                                        <option value="">Choose...</option>
+                                        <option>Alberta</option>
+                                        <option>British Columbia</option>
+                                        <option>Saskatchewan</option>
+                                        <option>Northwest Territories</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid province.
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="bpostalcode">Postal Code</label>
+                                    <input type="text" class="form-control" name = "bpostalcode" id="bpostalcode" placeholder="" required>
+                                    <div class="invalid-feedback">
+                                        Postal code required.
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Enigma Design Solutions {% now "Y" %}</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+
+    </body>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"
+        integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+        crossorigin="anonymous"></script>

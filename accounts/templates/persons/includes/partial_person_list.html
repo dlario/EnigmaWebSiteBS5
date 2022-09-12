@@ -1,0 +1,21 @@
+{% for person in persons %}
+  <tr>
+    <td>{{ person.first_name }} {{ person.last_name }}</td>
+    <td>
+      <button type="button"
+              class="btn btn-warning btn-sm js-update-person"
+              data-url="{% url 'person_update' person.id %}">
+        <span class="fas fa-pen"></span>
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-sm js-delete-person"
+              data-url="{% url 'person_delete' person.id %}">
+        <span class="fas fa-trash-alt"></span>
+      </button>
+    </td>
+  </tr>
+{% empty %}
+  <tr>
+    <td colspan="8" class="text-center bg-warning">No person</td>
+  </tr>
+{% endfor %}
