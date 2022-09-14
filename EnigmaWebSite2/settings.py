@@ -24,7 +24,8 @@ SECRET_KEY = 'gj_$x35zqa8ek5frp3ziebzbq7j@4f2=%jwlq4u&hrm@o51^q)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '138.68.237.3', 'enigma-design.ca',
+                 'www.enigma-design.ca']
 
 # Application definition
 
@@ -83,13 +84,12 @@ WSGI_APPLICATION = 'EnigmaWebSite2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        #        'NAME': config('DB_NAME'),
-        #        'USER': config('DB_USER'),
-        #        'PASSWORD': config('DB_PASSWORD'),
-        #        'HOST': config('DB_HOST'),
-        #        'PORT': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'EnigmaWebSite2',
+        'USER': 'dlario',
+        'PASSWORD': 'Mechanical75',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -124,7 +124,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 POPUPCRUD = {
     'base_template': 'mybase.html',
 }
