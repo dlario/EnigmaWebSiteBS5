@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'EnigmaWebSite2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'EnigmaWebSite2',
+        'NAME': 'website',
         'USER': 'dlario',
         'PASSWORD': 'Mechanical75',
         'HOST': 'localhost',
